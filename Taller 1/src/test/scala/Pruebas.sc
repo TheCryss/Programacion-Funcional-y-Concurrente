@@ -11,3 +11,4 @@ mcdTFA(List(1,0,0),List(0,1,0),List(2,3,5))//Primos relativos2
 mcdEB(963,657)
 mcdEB(500,120)
 mcdEB(43,27)
+mcdEB(672,38)

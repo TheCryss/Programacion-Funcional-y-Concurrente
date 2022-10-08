@@ -10,15 +10,17 @@ package object Recursion {
     pwrs(primos, ln, lm,1).toInt
   }
   //Calcular el minimo comun divisor y coneficientes de berzuit mediante el algoritmo de Euclides
-  def mcdEB(n: Int, m: Int): Int = {
+  def mcdEB(n: Int, m: Int): (Int,Int,Int) = {
     def q(n: Int, m: Int, result: Int): Int = if (n > m) q(n - m, m, result + 1) else return result
-    def divs(n: Int, m: Int, r: Int): Int = {
-      if (r == 0) m
-      else
-        divs(m, n - (m* q(n, m, 0)), (n-m)*q(n, m, 0))
+    def divs(n: Int, m: Int, r: Int, x: Int, y: Int,fx:Int,fy: Int): (Int,Int,Int) = {
+      if (r == 0) (m,fx,fy)
+      else {
+
+        divs(m, n - (m* q(n, m, 0)), (n-m)*q(n, m, 0),fx,fy,x-(fx*q(n, m, 0)),y-(fy*q(n, m, 0)))
+      }
     }
 
-    divs(n, m, 1)
+    divs(n, m, 1,1,0,0,1)
   }
  // def div(n:Int,m:Int,q:Int):Int= if (n>m) div(n-m,m, q+1) else return q
 }
