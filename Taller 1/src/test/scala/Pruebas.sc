@@ -12,3 +12,13 @@ mcdEB(963,657)
 mcdEB(500,120)
 mcdEB(43,27)
 mcdEB(672,38)
+
+fibonacciA(6)
+fibonacciA(5)
+fibonacciA(0)
+fibonacciA(1)
+
+fibonacciI(6)
+fibonacciI(5)
+fibonacciI(0)
+fibonacciI(1)
