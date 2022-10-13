@@ -8,10 +8,10 @@ mcdTFA(List(1,0,2),List(1,0,2),List(2,3,5))//50 y 50 (Numeros iguales)
 mcdTFA(List(1,0,0),List(0,1,0),List(2,3,5))//Primos relativos2
 //Algoritmo de la Division
 
-mcdEB(963,657)
-mcdEB(500,120)
-mcdEB(43,27)
-mcdEB(672,38)
+mcdEBez(963,657)
+mcdEBez(500,120)
+mcdEBez(43,27)
+mcdEBez(672,38)
 
 fibonacciA(6)
 fibonacciA(5)

@@ -1,3 +1,5 @@
+import scala.annotation.tailrec
+
 package object Recursion {
   /*
   Ejercicio 1.1.1
@@ -8,6 +10,7 @@ package object Recursion {
 
     def pwrPrime(primes: List[Int], ln: List[Int], lm: List[Int]): Double = scala.math.pow(primes.head, cmpEXPO(ln, lm))
 
+    @tailrec
     def pwrs(primes: List[Int], ln: List[Int], lm: List[Int], result: Double): Double = {
       if (primes.isEmpty) result
       else pwrs(primes.tail, ln.tail, lm.tail, result * pwrPrime(primes, ln, lm))
@@ -19,9 +22,12 @@ package object Recursion {
   /*
     Ejercicio 1.1.2
     Maximo comun divisor a partir algoritmo extendido de Euclides
+
   */
-  def mcdEB(n: Int, m: Int): (Int, Int, Int) = {
+  def mcdEBez(n: Int, m: Int): (Int, Int, Int) = {
+    @tailrec
     def q(n: Int, m: Int, result: Int): Int = if (n > m) q(n - m, m, result + 1) else return result
+    @tailrec
     def divs(n: Int, m: Int, r: Int, x: Int, y: Int, fx: Int, fy: Int): (Int, Int, Int) = {
       if (r == 0) (m, fx, fy)
       else {
@@ -44,7 +50,8 @@ package object Recursion {
       Fibonacci recurcion iterativa
   */
   def fibonacciI(n:Int):Int ={
-    def iterable(counter: Int,result: Int,pred:Int,pos:Int):Int={
+    @tailrec
+    def iterable(counter: Int, result: Int, pred:Int, pos:Int):Int={
       if(counter>=n) result
       else {
         iterable(counter+1,pred+pos,pos,pred+pos)
@@ -52,6 +59,6 @@ package object Recursion {
     }
     iterable(0,1,0,1)
   }
-
+//fin
 }
 
