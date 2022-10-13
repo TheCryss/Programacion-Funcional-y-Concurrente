@@ -6,19 +6,28 @@ mcdTFA(List(0,0,1),List(1,1,0),List(2,3,5))//5 y 6 (Primos relativos)
 mcdTFA(List(0,3,0,0,0,0,0,0,0,0,0,0,0,0,0),List(0,0,0,0,0,0,0,0,0,0,0,0,0,0,1),List(2,3,5,7,11,13,17,19,23,29,31,37,41,43,47))//27 y 43
 mcdTFA(List(1,0,2),List(1,0,2),List(2,3,5))//50 y 50 (Numeros iguales)
 mcdTFA(List(1,0,0),List(0,1,0),List(2,3,5))//Primos relativos2
+mcdTFA(List(3,0,3),List(1,1,3),List(2,3,5))// 1000 y 750
+mcdTFA(List(1),List(1),List(2))// 1000 y 750
 //Algoritmo de la Division
 
 mcdEBez(963,657)
 mcdEBez(500,120)
 mcdEBez(43,27)
 mcdEBez(672,38)
+mcdEBez(7,7)
+mcdEBez(1500,785)
+
+
 
 fibonacciA(6)
 fibonacciA(5)
 fibonacciA(0)
 fibonacciA(1)
+fibonacciA(20)
+
 
 fibonacciI(6)
 fibonacciI(5)
 fibonacciI(0)
 fibonacciI(1)
+fibonacciA(20)
