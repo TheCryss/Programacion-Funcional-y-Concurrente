@@ -29,9 +29,11 @@ mostrar(derivar(expr2,Atomo('x')))
 mostrar(derivar(expr7,Atomo('x')))
 mostrar(derivar(expr8,Atomo('k')))
 mostrar(derivar(expr4,Atomo('y')))
-
 mostrar(expr3)
 mostrar(derivar(expr3,Atomo('y')))
+mostrar(derivar(expr4_1,Atomo('t')))
+mostrar(expr4)
+mostrar(derivar(expr4,Atomo('x')))
 
 //test profesor
 mostrar ( derivar ( expr6 , Atomo( 'x' ) ) )
@@ -78,6 +80,9 @@ mostrar(limpiar(expr10))
 
 mostrar(expr2)
 mostrar(limpiar(expr2))
+
+mostrar(expr4_1)
+mostrar(limpiar(derivar(expr4_1,Atomo('x'))))
 
 
 

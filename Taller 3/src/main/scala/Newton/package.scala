@@ -33,7 +33,7 @@ package object Newton {
       case Prod(e1, e2) => Suma(Prod(derivar(e1, a), e2), Prod(e1, derivar(e2, a)))
       case Div(e1, e2) => Div(Resta(Prod(derivar(e1, a), e2), Prod(e1, derivar(e2, a))), Expo(e2, Numero(2)))
       case Expo(e1, e2) => Prod(Expo(e1, e2), Suma(Div(Prod(derivar(e1, a), e2), e1), Prod(derivar(e2, a), Logaritmo(e1))))
-      case Logaritmo(e1) => if (derivar(e1, a) == a) Div(Numero(1), e1) else Numero(0)
+      case Logaritmo(e1) => Div(derivar(e1,a),e1)
   }
 
   def evaluar ( f : Expr , a : Atomo , v : Double ) : Double = {
