@@ -35,8 +35,13 @@ package object Canicas {
 
  def distribucion(m: Int, n: Int, c: Int): List[Distr] = {
   val mezclas = mezclarLCanicas(canicasPorFrasco(n, c))
-  def aux(canicas: List[Int]): Boolean = {if (canicas.sum == m) true else false}
+
+  def aux(canicas: List[Int]): Boolean = {
+   if (canicas.sum == m) true else false
+  }
+
   def aux2(combinacion: List[Frasco]): List[Int] = for (canicas <- combinacion) yield (canicas._2)
+
   for (a <- mezclas; if (aux(aux2(a)))) yield a
  }
 
@@ -56,38 +61,69 @@ package object Canicas {
  }
 
  def noZero(group: List[List[Int]]): List[List[Int]] = {
- def aux(num: Int): Boolean = {
-  if (num == 0) true else false
- }
- def aux2(value: List[Int]): List[Int] = {
-  for (a <- value; if (!aux(a))) yield (a)
- }
- for (a <- group) yield aux2(a)
-}
+  def aux(num: Int): Boolean = {
+   if (num == 0) true else false
+  }
 
-/*
+  def aux2(value: List[Int]): List[Int] = {
+   for (a <- value; if (!aux(a))) yield (a)
+  }
+
+  for (a <- group) yield aux2(a)
+ }
+
+
  def agrupaciones(m: Int): List[List[Int]] = {
   def maxSize(a: Int, b: Int, lista: List[Int]): Int = {
-   if (a >= 10) {b} else {maxSize(a + lista.head, b + 1, lista.tail)}}
+   if (a >= 10) {
+    b
+   } else {
+    maxSize(a + lista.head, b + 1, lista.tail)
+   }
+  }
+
   val listOfValues = (for (a <- 1 to m) yield a).toList
   val n = maxSize(0, 0, listOfValues)
-
   //Total de Combianciones que forman m
   val combinations = distribucion(m, n, m)
   //Me quedo unicamente con listas de Int
 
   def onlyInt(group: List[Distr]): List[List[Int]] = {
    def aux2(combinacion: List[Frasco]): List[Int] = for (canicas <- combinacion) yield (canicas._2)
-   for (a <- group ) yield aux2(a)
-  }
-  val onlyNumbers = onlyInt(combinations)
-  
-  def noZero(group: List[List[Int]]):List[List[Int]]={
-   def aux(num:Int):Boolean={if(num==0) true else false}
-   def aux2(value: List[Int]): List[Int] = {for (a <- value;if (!aux(a))) yield (a)}
+
    for (a <- group) yield aux2(a)
   }
+
+  val onlyNumbers = onlyInt(combinations)
+
+  def noZero(group: List[List[Int]]): List[List[Int]] = {
+   def aux(num: Int): Boolean = {
+    if (num == 0) true else false
+   }
+
+   def aux2(value: List[Int]): List[Int] = {
+    for (a <- value; if (!aux(a))) yield (a)
+   }
+
+   for (a <- group) yield aux2(a)
+  }
+
+  val noZeros = noZero(onlyNumbers)
+
+  def sencillito(x:List[List[Int]]):List[List[Int]]={
+
+   val m=(for(a<-x)yield a.toSet).distinct
+   def aux(y:List[Set[Int]]):List[List[Int]]={
+    for (x<-y) yield (x).toList
+   }
+   aux(m)
+  }
+ val u=sencillito(noZeros)
+  def aux3(x:List[List[Int]]):List[List[Int]]={
+   for(a<-x;if(a.sum==m)) yield a
+  }
+ aux3(u)
  }
-*/
 }
+
 
