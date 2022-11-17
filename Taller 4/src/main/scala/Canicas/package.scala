@@ -54,28 +54,9 @@ package object Canicas {
 * */
  //def maxSize(a:Int,b:Int,lista:List[Int]): Int = {if(a>=10){b}else{maxSize(a+lista.head,b+1,lista.tail)}}
 
- def onlyInt(group: List[Distr]): List[List[Int]] = {
-  def aux2(combinacion: List[Frasco]): List[Int] = for (canicas <- combinacion) yield (canicas._2)
-
-  for (a <- group) yield aux2(a)
- }
-
- def noZero(group: List[List[Int]]): List[List[Int]] = {
-  def aux(num: Int): Boolean = {
-   if (num == 0) true else false
-  }
-
-  def aux2(value: List[Int]): List[Int] = {
-   for (a <- value; if (!aux(a))) yield (a)
-  }
-
-  for (a <- group) yield aux2(a)
- }
-
-
  def agrupaciones(m: Int): List[List[Int]] = {
   def maxSize(a: Int, b: Int, lista: List[Int]): Int = {
-   if (a >= 10) {
+   if (a >= m) {
     b
    } else {
     maxSize(a + lista.head, b + 1, lista.tail)
@@ -84,6 +65,7 @@ package object Canicas {
 
   val listOfValues = (for (a <- 1 to m) yield a).toList
   val n = maxSize(0, 0, listOfValues)
+
   //Total de Combianciones que forman m
   val combinations = distribucion(m, n, m)
   //Me quedo unicamente con listas de Int
