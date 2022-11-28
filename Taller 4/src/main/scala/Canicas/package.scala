@@ -1,111 +1,56 @@
-import scala.::
-
 package object Canicas {
- type Frasco = (Int, Int);
- type Distr = List[Frasco];
 
+  type Frasco = (Int, Int)
+  type Distr = List[Frasco]
 
- //ponemos el metodo for entre parentesis para convertir IndexSeq a List
- def canincasPosiblesFrasco(f: Int, c: Int): List[Frasco] = {
-  (for {
-   quantity <- 0 to c
-  } yield (f, quantity)).toList
- }
-
- def canicasPorFrasco(n: Int, c: Int): List[Distr] = {
-  (for {a <- 1 to n} yield (canincasPosiblesFrasco(a, c))).toList
- }
-
-
- def mezclarLCanicas(lc: List[Distr]): List[Distr] = {
-  def aux(comb: List[Distr], frascos: List[Distr]): List[Distr] = {
-   if (frascos.isEmpty) {
-    comb
-   } else {
-    //toma cada valor dentro de la lista 'a' y le aplica la cola de lc, de la cual toma el primer valor y esa Lista la descompone y concatena cada valor por separado a 'a'
-    aux(for (a <- comb; b <- frascos.head) yield a :+ b, frascos.tail)
-   }
+  def canicasPosiblesFrasco(f:Int, c:Int) : List[Frasco] = {
+    for (e <- (0 to c).toList) yield (f,e)
   }
 
-  //List(List((1,0)), List((1,1)), List((1,2)), List((1,3)), List((1,4)), List((1,5)))
-  val c = for (primer <- lc.head) yield List(primer)
-  aux(c, lc.tail)
- }
-
-
- def distribucion(m: Int, n: Int, c: Int): List[Distr] = {
-  val mezclas = mezclarLCanicas(canicasPorFrasco(n, c))
-
-  def aux(canicas: List[Int]): Boolean = {
-   if (canicas.sum == m) true else false
+  def canicasPorFrasco(n:Int, c:Int) : List[Distr] = {
+    for (f <- (1 to n).toList) yield canicasPosiblesFrasco(f, c)
   }
 
-  def aux2(combinacion: List[Frasco]): List[Int] = for (canicas <- combinacion) yield (canicas._2)
+  def mezclarLCanicas(lc:List[Distr]) : List[Distr] = {
 
-  for (a <- mezclas; if (aux(aux2(a)))) yield a
- }
+    def mezclarLC(l1:List[Distr], l2: List[Distr]): List[Distr] = {
+      if (l2.isEmpty) l1
+      else mezclarLC(aux(l1, l2.head), l2.tail)
+    }
 
- //val test = distribucion(10, 4, 10)
+    def aux(l1:List[Distr], d2:Distr) : List[Distr] = {
+      if(l1.isEmpty) for(f <- d2) yield f::Nil
+      else for (d <- l1; f <- d2) yield d:+f
+    }
 
+    mezclarLC(aux(Nil, lc.head), lc.tail)
 
- /*
-* Nos devuelve el tamaño del mayor conjunto de valores que forman un valor m
-* Donde b es ese tamaño.
-* */
- //def maxSize(a:Int,b:Int,lista:List[Int]): Int = {if(a>=10){b}else{maxSize(a+lista.head,b+1,lista.tail)}}
-
- def agrupaciones(m: Int): List[List[Int]] = {
-  def maxSize(a: Int, b: Int, lista: List[Int]): Int = {
-   if (a >= m) {
-    b
-   } else {
-    maxSize(a + lista.head, b + 1, lista.tail)
-   }
   }
 
-  val listOfValues = (for (a <- 1 to m) yield a).toList
-  val n = maxSize(0, 0, listOfValues)
+  def distribucion(m:Int, n:Int, c:Int) : List[Distr] = {
 
-  //Total de Combianciones que forman m
-  val combinations = distribucion(m, n, m)
-  //Me quedo unicamente con listas de Int
+    def condicion(d:Distr) : Boolean = (for (f <- d) yield f._2).sum == m
 
-  def onlyInt(group: List[Distr]): List[List[Int]] = {
-   def aux2(combinacion: List[Frasco]): List[Int] = for (canicas <- combinacion) yield (canicas._2)
-
-   for (a <- group) yield aux2(a)
+    val posiblesCasos = mezclarLCanicas(canicasPorFrasco(n, c))
+    for (d <- posiblesCasos if condicion(d)) yield d
   }
 
-  val onlyNumbers = onlyInt(combinations)
+  def agrupaciones(m:Int) : List[List[Int]] = {
 
-  def noZero(group: List[List[Int]]): List[List[Int]] = {
-   def aux(num: Int): Boolean = {
-    if (num == 0) true else false
-   }
+    def noTieneReps(li:List[Int]):Boolean = {
+      li.size == li.toSet.size
+    }
 
-   def aux2(value: List[Int]): List[Int] = {
-    for (a <- value; if (!aux(a))) yield (a)
-   }
+    def nMax(m:Int): Int = {
+      def nM(acum: Int, a: Int, b: Int): Int = {
+        if (acum > a) b
+        else nM(acum + b, a, b + 1)
+      }
+      nM(1, m, 1)
+    }
 
-   for (a <- group) yield aux2(a)
+    val agr = for (d <- distribucion(m, nMax(m),m)) yield for (f <- d; if f._2 != 0) yield f._2
+    val agr2 = for (li <- agr; if noTieneReps(li)) yield li.toSet
+    for (li <- agr2.distinct) yield li.toList
   }
-
-  val noZeros = noZero(onlyNumbers)
-
-  def sencillito(x:List[List[Int]]):List[List[Int]]={
-
-   val m=(for(a<-x)yield a.toSet).distinct
-   def aux(y:List[Set[Int]]):List[List[Int]]={
-    for (x<-y) yield (x).toList
-   }
-   aux(m)
-  }
- val u=sencillito(noZeros)
-  def aux3(x:List[List[Int]]):List[List[Int]]={
-   for(a<-x;if(a.sum==m)) yield a
-  }
- aux3(u)
- }
 }
-
-

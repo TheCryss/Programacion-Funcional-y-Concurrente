@@ -1,0 +1,122 @@
+[debug] > Exec(early(addDefaultCommands), None, None)
+[debug] > Exec(addDefaultCommands, None, None)
+[debug] > Exec(early(initialize), None, None)
+[debug] > Exec(initialize, None, None)
+[debug] > Exec(boot, None, None)
+[debug] > Exec(writeSbtVersion, None, None)
+[debug] > Exec(reload, None, None)
+[debug] > Exec(sbtStashOnFailure, None, None)
+[debug] > Exec(onFailure loadFailed, None, None)
+[debug] > Exec(loadp, None, None)
+[info] welcome to sbt 1.8.0 (Ubuntu Java 11.0.17)
+[debug]       Load.loadUnit: plugins took 164.064253ms
+[debug]       Load.loadUnit: defsScala took 0.411824ms
+[debug] [Loading] Scanning directory /home/bucheli/.sbt/1.0/plugins
+[debug] [Loading] Found non-root projects 
+[debug] [Loading] Done in /home/bucheli/.sbt/1.0/plugins, returning: ()
+[debug] deducing auto plugins based on known facts Set(Atom(sbt.plugins.CorePlugin)) and clauses Clauses(Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.IvyPlugin)))
+[debug] Clause(Atom(sbt.ScriptedPlugin),Set(Atom(sbt.plugins.JvmPlugin)))
+[debug] Clause(Atom(sbt.plugins.SbtPlugin),Set(Atom(sbt.ScriptedPlugin)))
+[debug] Clause(Atom(sbt.plugins.SemanticdbPlugin),Set(Atom(sbt.plugins.JvmPlugin)))
+[debug] Clause(Atom(sbt.plugins.JUnitXmlReportPlugin),Set(Atom(sbt.plugins.JvmPlugin)))
+[debug] Clause(Atom(sbt.plugins.MiniDependencyTreePlugin),Set(Atom(sbt.plugins.JvmPlugin)))
+[debug] Clause(Atom(sbt.plugins.CorePlugin),Set(Atom(sbt.plugins.IvyPlugin)))
+[debug] Clause(Atom(sbt.plugins.IvyPlugin),Set(Atom(sbt.plugins.JvmPlugin)))
+[debug] Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.SemanticdbPlugin)))
+[debug] Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.JUnitXmlReportPlugin)))
+[debug] Clause(Atom(sbt.plugins.CorePlugin),Set(Atom(sbt.plugins.Giter8TemplatePlugin)))
+[debug] Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.MiniDependencyTreePlugin))))
+[debug]   :: deduced result: Matched(sbt.plugins.CorePlugin,sbt.plugins.Giter8TemplatePlugin,sbt.plugins.IvyPlugin,sbt.plugins.JvmPlugin,sbt.plugins.MiniDependencyTreePlugin,sbt.plugins.JUnitXmlReportPlugin,sbt.plugins.SemanticdbPlugin)
+[debug] Plugins.deducer#function took 24.513509 ms
+[debug]           Load.resolveProject(global-plugins) took 132.584546ms
+[debug]         Load.loadTransitive: finalizeProject(Project(id global-plugins, base: /home/bucheli/.sbt/1.0/plugins, plugins: List(<none>))) took 219.844089ms
+[debug] [Loading] Done in /home/bucheli/.sbt/1.0/plugins, returning: (global-plugins)
+[debug]       Load.loadUnit: loadedProjectsRaw took 269.75051ms
+[debug]       Load.loadUnit: cleanEvalClasses took 0.337601ms
+[debug]     Load.loadUnit(file:/home/bucheli/.sbt/1.0/plugins/, ...) took 461.987483ms
+[debug]   Load.apply: load took 809.809964ms
+[debug]   Load.apply: resolveProjects took 9.239135ms
+[debug]   Load.apply: finalTransforms took 119.954961ms
+[debug]   Load.apply: config.delegates took 12.914623ms
+[debug]   Load.apply: Def.make(settings)... took 921.272597ms
+[debug]   Load.apply: structureIndex took 230.153542ms
+[debug]   Load.apply: mkStreams took 10.943876ms
+[info] loading global plugins from /home/bucheli/.sbt/1.0/plugins
+[debug] Running task... Cancel: Signal, check cycles: false, forcegc: true
+[debug] Load.defaultLoad until apply took 4768.649784ms
+[debug]           Load.loadUnit: plugins took 20.799812ms
+[debug]           Load.loadUnit: defsScala took 0.008154ms
+[debug] [Loading] Scanning directory /home/bucheli/IdeaProjects/Programacion-Funcional-y-Concurrente/Taller_5/project
+[debug] [Loading] Found non-root projects 
+[debug] [Loading] Done in /home/bucheli/IdeaProjects/Programacion-Funcional-y-Concurrente/Taller_5/project, returning: ()
+[debug] deducing auto plugins based on known facts Set(Atom(sbt.plugins.CorePlugin)) and clauses Clauses(Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.IvyPlugin)))
+[debug] Clause(Atom(sbt.ScriptedPlugin),Set(Atom(sbt.plugins.JvmPlugin)))
+[debug] Clause(Atom(sbt.plugins.SbtPlugin),Set(Atom(sbt.ScriptedPlugin)))
+[debug] Clause(Atom(sbt.plugins.SemanticdbPlugin),Set(Atom(sbt.plugins.JvmPlugin)))
+[debug] Clause(Atom(sbt.plugins.JUnitXmlReportPlugin),Set(Atom(sbt.plugins.JvmPlugin)))
+[debug] Clause(Atom(sbt.plugins.MiniDependencyTreePlugin),Set(Atom(sbt.plugins.JvmPlugin)))
+[debug] Clause(Atom(sbt.plugins.CorePlugin),Set(Atom(sbt.plugins.IvyPlugin)))
+[debug] Clause(Atom(sbt.plugins.IvyPlugin),Set(Atom(sbt.plugins.JvmPlugin)))
+[debug] Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.SemanticdbPlugin)))
+[debug] Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.JUnitXmlReportPlugin)))
+[debug] Clause(Atom(sbt.plugins.CorePlugin),Set(Atom(sbt.plugins.Giter8TemplatePlugin)))
+[debug] Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.MiniDependencyTreePlugin))))
+[debug]   :: deduced result: Matched(sbt.plugins.CorePlugin,sbt.plugins.Giter8TemplatePlugin,sbt.plugins.IvyPlugin,sbt.plugins.JvmPlugin,sbt.plugins.MiniDependencyTreePlugin,sbt.plugins.JUnitXmlReportPlugin,sbt.plugins.SemanticdbPlugin)
+[debug] Plugins.deducer#function took 3.053749 ms
+[debug]               Load.resolveProject(taller_5-build) took 1.564449ms
+[debug]             Load.loadTransitive: finalizeProject(Project(id taller_5-build, base: /home/bucheli/IdeaProjects/Programacion-Funcional-y-Concurrente/Taller_5/project, plugins: List(<none>))) took 5.447591ms
+[debug] [Loading] Done in /home/bucheli/IdeaProjects/Programacion-Funcional-y-Concurrente/Taller_5/project, returning: (taller_5-build)
+[debug]           Load.loadUnit: loadedProjectsRaw took 7.79825ms
+[debug]           Load.loadUnit: cleanEvalClasses took 0.018098ms
+[debug]         Load.loadUnit(file:/home/bucheli/IdeaProjects/Programacion-Funcional-y-Concurrente/Taller_5/project/, ...) took 29.732866ms
+[debug]       Load.apply: load took 31.780859ms
+[debug]       Load.apply: resolveProjects took 0.204851ms
+[debug]       Load.apply: finalTransforms took 18.206416ms
+[debug]       Load.apply: config.delegates took 0.691974ms
+[debug]       Load.apply: Def.make(settings)... took 160.972381ms
+[debug]       Load.apply: structureIndex took 39.710217ms
+[debug]       Load.apply: mkStreams took 0.003197ms
+[info] loading project definition from /home/bucheli/IdeaProjects/Programacion-Funcional-y-Concurrente/Taller_5/project
+[debug] Running task... Cancel: Signal, check cycles: false, forcegc: true
+[debug]     Load.loadUnit: plugins took 493.091814ms
+[debug]     Load.loadUnit: defsScala took 0.006418ms
+[debug] [Loading] Scanning directory /home/bucheli/IdeaProjects/Programacion-Funcional-y-Concurrente/Taller_5
+[debug]       Load.loadUnit: mkEval took 8.885663ms
+[debug] [Loading] Found root project root w/ remaining 
+[debug] deducing auto plugins based on known facts Set(Atom(sbt.plugins.CorePlugin)) and clauses Clauses(Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.IvyPlugin)))
+[debug] Clause(Atom(sbt.ScriptedPlugin),Set(Atom(sbt.plugins.JvmPlugin)))
+[debug] Clause(Atom(sbt.plugins.SbtPlugin),Set(Atom(sbt.ScriptedPlugin)))
+[debug] Clause(Atom(sbt.plugins.SemanticdbPlugin),Set(Atom(sbt.plugins.JvmPlugin)))
+[debug] Clause(Atom(sbt.plugins.JUnitXmlReportPlugin),Set(Atom(sbt.plugins.JvmPlugin)))
+[debug] Clause(Atom(sbt.plugins.MiniDependencyTreePlugin),Set(Atom(sbt.plugins.JvmPlugin)))
+[debug] Clause(Atom(sbt.plugins.CorePlugin),Set(Atom(sbt.plugins.IvyPlugin)))
+[debug] Clause(Atom(sbt.plugins.IvyPlugin),Set(Atom(sbt.plugins.JvmPlugin)))
+[debug] Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.SemanticdbPlugin)))
+[debug] Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.JUnitXmlReportPlugin)))
+[debug] Clause(Atom(sbt.plugins.CorePlugin),Set(Atom(sbt.plugins.Giter8TemplatePlugin)))
+[debug] Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.MiniDependencyTreePlugin))))
+[debug]   :: deduced result: Matched(sbt.plugins.CorePlugin,sbt.plugins.Giter8TemplatePlugin,sbt.plugins.IvyPlugin,sbt.plugins.JvmPlugin,sbt.plugins.MiniDependencyTreePlugin,sbt.plugins.JUnitXmlReportPlugin,sbt.plugins.SemanticdbPlugin)
+[debug] Plugins.deducer#function took 1.968946 ms
+[info] loading settings for project root from build.sbt ...
+[debug]         Load.resolveProject(root) took 2.882294ms
+[debug]       Load.loadTransitive: finalizeProject(Project(id root, base: /home/bucheli/IdeaProjects/Programacion-Funcional-y-Concurrente/Taller_5, plugins: List(<none>))) took 5.901577ms
+[debug] [Loading] Done in /home/bucheli/IdeaProjects/Programacion-Funcional-y-Concurrente/Taller_5, returning: (root)
+[debug]     Load.loadUnit: loadedProjectsRaw took 3424.382697ms
+[debug]     Load.loadUnit: cleanEvalClasses took 5.087812ms
+[debug]   Load.loadUnit(file:/home/bucheli/IdeaProjects/Programacion-Funcional-y-Concurrente/Taller_5/, ...) took 3923.459197ms
+[debug] Load.apply: load took 3925.082859ms
+[debug] Load.apply: resolveProjects took 0.129724ms
+[debug] Load.apply: finalTransforms took 8.493421ms
+[debug] Load.apply: config.delegates took 0.36235ms
+[debug] Load.apply: Def.make(settings)... took 62.834339ms
+[debug] Load.apply: structureIndex took 26.227486ms
+[debug] Load.apply: mkStreams took 0.005729ms
+[info] set current project to Taller_5 (in build file:/home/bucheli/IdeaProjects/Programacion-Funcional-y-Concurrente/Taller_5/)
+[debug] > Exec(sbtPopOnFailure, None, None)
+[debug] > Exec(resumeFromFailure, None, None)
+[debug] > Exec(notifyUsersAboutShell, None, None)
+[debug] > Exec(iflast shell, None, None)
+[debug] > Exec(shell, None, None)
+[info] sbt server started at local:///home/bucheli/.sbt/1.0/server/bf0297deb4456c832831/sock
+[debug] Writing bsp connection file
+[info] started sbt server
