@@ -4,6 +4,7 @@ import common.*
 
 package object Matrices {
   type Matriz = Vector [ Vector [Int] ]
+  type VectorMatriz = Vector[Matriz]
 
   def matrizAlAzar(long: Int, vals: Int):Matriz = {
     val v = Vector.fill (long, long) {Random.nextInt(vals)}
@@ -46,12 +47,10 @@ package object Matrices {
     def aux(paso:Int,counter:Int):Matriz = {
       //println(s"paso:$paso l:$l pas:$pas hilos:$h")
       if(l<=4){
-
         val (a,b) =parallel(
           Vector.tabulate(pas, l)((i, j) => prodEscalar(m1(i), trans(j))),
           Vector.tabulate(pas, l)((i, j) => prodEscalar(m1(i+pas), trans(j)))
         )
-
         a++b
       }else{
         if (counter == 0) Vector()
@@ -66,29 +65,46 @@ package object Matrices {
       }
     }
     aux(0,fCounter())
+  }
 
+  def subMatriz (m: Matriz , i : Int , j : Int , l : Int ) : Matriz={
+
+    Vector.tabulate(l,l)((a,b)=>m(i+a)(j+b))
   }
 
 
 
+
+  def sumMatriz(m1 : Matriz , m2 : Matriz ) : Matriz={
+    val l = m1.length
+    Vector.tabulate(l, l)((a, b) => m1(a)(b)+m2(a)(b))
+  }
+
+  def multMatrizRec (m1 : Matriz , m2 : Matriz ) : Matriz= {
+    val l = m1.length
+    //Extraigo las 4 submatrices de m1
+    val mA = (for (i <- 0 to 1; j <- 0 to 1) yield subMatriz(m1, i * l / 2, j * l / 2, l / 2)).toVector
+    val mB = (for (i <- 0 to 1; j <- 0 to 1) yield subMatriz(m2, i * l / 2, j * l / 2, l / 2)).toVector
+    val trans = for (a <- 0 until mB.length) yield transpuesta(mB(a))
+    //cambiar left y right
+    def left(): VectorMatriz = {
+      (for (i <- 0 to 1; j <- 0 to 1) yield multMatriz(mA(i * 2), mB(j))).toVector
+    }
+    def right(): VectorMatriz = {
+      (for (i <- 1 to 2; j <- 2 to 3) yield multMatriz(mA((i * 2) - 1), mB(j))).toVector
+    }
+    val nR = right()
+    val nL = left()
+    def reAgroup(): VectorMatriz = {
+      (nR zip nL).map({ (i, j) => (sumMatriz(i, j)) })
+    }
+    val q = reAgroup()
+    def nMatriz(): Matriz = {
+      ((Vector((q(0)(0) ++ q(1)(0))):+(q(0)(1) ++ q(1)(1))):+(q(2)(0) ++ q(3)(0))):+(q(2)(1) ++ q(3)(1))
+    }
+   val f = nMatriz()
+    f
+  }
+
+
 }
-
-/*
-val (a,b,c,d)= parallel(Vector.tabulate(r, l)((i, j) => prodEscalar(m1(i),
-trans(j))),Vector.tabulate(r, l)((i, j) => prodEscalar(m1(i +2), trans(j))),
-Vector.tabulate(r, l)((i, j) => prodEscalar(m1(i+4),
-trans(j))),Vector.tabulate(r, l)((i, j) => prodEscalar(m1(i+6), trans(j))))
-a++b++c++d
-
-
-
-    Para 4*4
-    val t1 = task(Vector.tabulate(2, l)((i, j) => prodEscalar(m1(i), trans(j))))
-    val t2 =task(Vector.tabulate(2, l)((i, j) => prodEscalar(m1(i+2), trans(j))))
-*/
-/*
-val t1 = task(Vector.tabulate(r, l)((i, j) => prodEscalar(m1(i), trans(j)))) //0-1
-val t2 = task(Vector.tabulate(r, l)((i, j) => prodEscalar(m1(i +2), trans(j))))//2-3
-val t3 = task(Vector.tabulate(r, l)((i, j) => prodEscalar(m1(i+4), trans(j))))//4-5
-val t4 = task(Vector.tabulate(r, l)((i, j) => prodEscalar(m1(i+6), trans(j))))//4-5
-val newM = t1.join()++t2.join()++t3.join()++t4.join()*/
