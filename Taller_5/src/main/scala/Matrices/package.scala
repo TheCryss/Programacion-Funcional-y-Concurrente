@@ -72,39 +72,120 @@ package object Matrices {
     Vector.tabulate(l,l)((a,b)=>m(i+a)(j+b))
   }
 
-
-
-
   def sumMatriz(m1 : Matriz , m2 : Matriz ) : Matriz={
     val l = m1.length
     Vector.tabulate(l, l)((a, b) => m1(a)(b)+m2(a)(b))
   }
 
-  def multMatrizRec (m1 : Matriz , m2 : Matriz ) : Matriz= {
+  def restaMatriz(m1: Matriz, m2: Matriz): Matriz = {
     val l = m1.length
-    //Extraigo las 4 submatrices de m1
-    val mA = (for (i <- 0 to 1; j <- 0 to 1) yield subMatriz(m1, i * l / 2, j * l / 2, l / 2)).toVector
-    val mB = (for (i <- 0 to 1; j <- 0 to 1) yield subMatriz(m2, i * l / 2, j * l / 2, l / 2)).toVector
-    val trans = for (a <- 0 until mB.length) yield transpuesta(mB(a))
-    //cambiar left y right
-    def left(): VectorMatriz = {
-      (for (i <- 0 to 1; j <- 0 to 1) yield multMatriz(mA(i * 2), mB(j))).toVector
-    }
-    def right(): VectorMatriz = {
-      (for (i <- 1 to 2; j <- 2 to 3) yield multMatriz(mA((i * 2) - 1), mB(j))).toVector
-    }
-    val nR = right()
-    val nL = left()
-    def reAgroup(): VectorMatriz = {
-      (nR zip nL).map({ (i, j) => (sumMatriz(i, j)) })
-    }
-    val q = reAgroup()
-    def nMatriz(): Matriz = {
-      ((Vector((q(0)(0) ++ q(1)(0))):+(q(0)(1) ++ q(1)(1))):+(q(2)(0) ++ q(3)(0))):+(q(2)(1) ++ q(3)(1))
-    }
-   val f = nMatriz()
-    f
+    Vector.tabulate(l, l)((a, b) => m1(a)(b)-m2(a)(b))
   }
 
 
+  def multMatrizRec(m1: Matriz, m2: Matriz): Matriz = {
+    val l = m1.length
+    if (l == 1) {
+      Vector.tabulate(l, l)((i, j) => prodEscalar(m1(i), m2(j)))
+    } else {
+      val mA = (for (i <- 0 to 1; j <- 0 to 1) yield subMatriz(m1, i * l / 2, j * l / 2, l / 2)).toVector
+      val mB = (for (i <- 0 to 1; j <- 0 to 1) yield subMatriz(m2, i * l / 2, j * l / 2, l / 2)).toVector
+      val C11 = sumMatriz(multMatrizRec(mA(0), mB(0)), multMatrizRec(mA(1), mB(2)))
+      val C12 = sumMatriz(multMatrizRec(mA(0), mB(1)), multMatrizRec(mA(1), mB(3)))
+      val C21 = sumMatriz(multMatrizRec(mA(2), mB(0)), multMatrizRec(mA(3), mB(2)))
+      val C22 = sumMatriz(multMatrizRec(mA(2), mB(1)), multMatrizRec(mA(3), mB(3)))
+
+      val upper = Vector.tabulate(C11.length)(i => C11(i) ++ C12(i))
+      val downer = Vector.tabulate(C21.length)(i => C21(i) ++ C22(i))
+      val nMatriz = (upper++downer)
+      return nMatriz
+    }
+  }
+  def multMatrizRecPar(m1: Matriz, m2: Matriz): Matriz = {
+    val l = m1.length
+    if (l == 1) {
+      Vector.tabulate(l, l)((i, j) => prodEscalar(m1(i), m2(j)))
+    } else {
+      val mA = (for (i <- 0 to 1; j <- 0 to 1) yield subMatriz(m1, i * l / 2, j * l / 2, l / 2)).toVector
+      val mB = (for (i <- 0 to 1; j <- 0 to 1) yield subMatriz(m2, i * l / 2, j * l / 2, l / 2)).toVector
+      val (a,b,c,d) = parallel(
+        sumMatriz(multMatrizRec(mA(0), mB(0)), multMatrizRec(mA(1), mB(2))),
+        sumMatriz(multMatrizRec(mA(0), mB(1)), multMatrizRec(mA(1), mB(3))),
+        sumMatriz(multMatrizRec(mA(2), mB(0)), multMatrizRec(mA(3), mB(2))),
+        sumMatriz(multMatrizRec(mA(2), mB(1)), multMatrizRec(mA(3), mB(3)))
+      )
+      val upper = Vector.tabulate(a.length)(i => a(i) ++ b(i))
+      val downer = Vector.tabulate(c.length)(i => c(i) ++ d(i))
+      val nMatriz = (upper ++ downer)
+      return nMatriz
+    }
+  }
+
+  def multStrassen(m1: Matriz, m2: Matriz): Matriz = {
+    val l = m1.length
+    if(l==1){
+      Vector.tabulate(l, l)((i, j) => prodEscalar(m1(i), m2(j)))
+    }else{
+      val A11 = subMatriz(m1, 0, 0, l / 2)
+      val A12 = subMatriz(m1, 0, l / 2, l / 2)
+      val A21 = subMatriz(m1, l / 2, 0, l / 2)
+      val A22 = subMatriz(m1, l / 2, l / 2, l / 2)
+
+      val B11 = subMatriz(m2, 0, 0, l / 2)
+      val B12 = subMatriz(m2, 0, l / 2, l / 2)
+      val B21 = subMatriz(m2, l / 2, 0, l / 2)
+      val B22 = subMatriz(m2, l / 2, l / 2, l / 2)
+
+      val s1 = restaMatriz(B12,B22)
+      val s2 = sumMatriz(A11,A12)
+      val s3 = sumMatriz(A21,A22)
+      val s4 = restaMatriz(B21,B11)
+      val s5 = sumMatriz(A11,A22)
+      val s6 = sumMatriz(B11,B22)
+      val s7 = restaMatriz(A12,A22)
+      val s8 = sumMatriz(B21,B22)
+      val s9 = restaMatriz(A11,A21)
+      val s10 = sumMatriz(B11,B12)
+
+      val p1= multStrassen(A11,s1)
+      val p2= multStrassen(s2,B22)
+      val p3= multStrassen(s3,B11)
+      val p4= multStrassen(A22,s4)
+      val p5= multStrassen(s5,s6)
+      val p6= multStrassen(s7,s8)
+      val p7= multStrassen(s9,s10)
+
+      val C11 = sumMatriz(sumMatriz(p5, p4), restaMatriz(p6, p2))
+      val C12 = sumMatriz(p1, p2)
+      val C21 = sumMatriz(p3, p4)
+      val C22 = restaMatriz(sumMatriz(p5, p1),(sumMatriz(p3, p7)))
+
+
+      val upper = Vector.tabulate(C11.length)(i => C11(i) ++ C12(i))
+      val downer = Vector.tabulate(C21.length)(i => C21(i) ++ C22(i))
+      val nMatriz = (upper ++ downer)
+
+      return nMatriz
+    }
+
+
+  }
+
+
+
+
+
 }
+/*
+*
+val s1 =
+val s2 =
+val s3 =
+val s4 =
+val s5 =
+val s6 =
+val s7 =
+val s8 =
+val s9 =
+val s10 =
+* */
