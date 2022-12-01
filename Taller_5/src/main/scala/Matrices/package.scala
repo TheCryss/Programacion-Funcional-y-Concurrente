@@ -160,32 +160,63 @@ package object Matrices {
       val C21 = sumMatriz(p3, p4)
       val C22 = restaMatriz(sumMatriz(p5, p1),(sumMatriz(p3, p7)))
 
+      val upper = Vector.tabulate(C11.length)(i => C11(i) ++ C12(i))
+      val downer = Vector.tabulate(C21.length)(i => C21(i) ++ C22(i))
+      val nMatriz = (upper ++ downer)
+      return nMatriz
+    }
+  }
+
+  def multStrassenPar(m1: Matriz, m2: Matriz): Matriz = {
+    val l = m1.length
+    if (l == 1) {
+      Vector.tabulate(l, l)((i, j) => prodEscalar(m1(i), m2(j)))
+    } else {
+      val A11 = subMatriz(m1, 0, 0, l / 2)
+      val A12 = subMatriz(m1, 0, l / 2, l / 2)
+      val A21 = subMatriz(m1, l / 2, 0, l / 2)
+      val A22 = subMatriz(m1, l / 2, l / 2, l / 2)
+
+      val B11 = subMatriz(m2, 0, 0, l / 2)
+      val B12 = subMatriz(m2, 0, l / 2, l / 2)
+      val B21 = subMatriz(m2, l / 2, 0, l / 2)
+      val B22 = subMatriz(m2, l / 2, l / 2, l / 2)
+
+      val s1 = restaMatriz(B12, B22)
+      val s2 = sumMatriz(A11, A12)
+      val s3 = sumMatriz(A21, A22)
+      val s4 = restaMatriz(B21, B11)
+      val s5 = sumMatriz(A11, A22)
+      val s6 = sumMatriz(B11, B22)
+      val s7 = restaMatriz(A12, A22)
+      val s8 = sumMatriz(B21, B22)
+      val s9 = restaMatriz(A11, A21)
+      val s10 = sumMatriz(B11, B12)
+
+      val (p1,p2,p3,p4) = parallel(
+        multStrassen(A11, s1),multStrassen(s2, B22),
+        multStrassen(s3, B11),multStrassen(A22, s4)
+      )
+
+      val (p5, p6) = parallel(
+        multStrassen(s5, s6),
+        multStrassen(s7, s8)
+      )
+
+      val p7= task(multStrassen(s9, s10))
+
+      val C11 = sumMatriz(sumMatriz(p5, p4), restaMatriz(p6, p2))
+      val C12 = sumMatriz(p1, p2)
+      val C21 = sumMatriz(p3, p4)
+      val C22 = restaMatriz(sumMatriz(p5, p1), (sumMatriz(p3, p7.join())))
 
       val upper = Vector.tabulate(C11.length)(i => C11(i) ++ C12(i))
       val downer = Vector.tabulate(C21.length)(i => C21(i) ++ C22(i))
       val nMatriz = (upper ++ downer)
-
       return nMatriz
     }
-
-
   }
 
 
 
-
-
 }
-/*
-*
-val s1 =
-val s2 =
-val s3 =
-val s4 =
-val s5 =
-val s6 =
-val s7 =
-val s8 =
-val s9 =
-val s10 =
-* */

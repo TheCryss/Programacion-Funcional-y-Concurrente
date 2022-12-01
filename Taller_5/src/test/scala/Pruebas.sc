@@ -1,26 +1,55 @@
 import Matrices._
 import org.scalameter._
 import Benchmark._
-val a =matrizAlAzar(16,10)
-//subMatriz(a,0,0,4)
-val b =matrizAlAzar(16,10)
+val a10 =matrizAlAzar(1024,10)
+val b10 =matrizAlAzar(1024,10)
 
-//val Ma=Vector(Vector(3, 0, 1, 3, 5, 0, 4, 0), Vector(4, 0, 2, 1, 0, 2, 5, 5), Vector(2, 4, 1, 0, 5, 1, 4, 4), Vector(1, 2, 2, 4, 5, 3, 2, 2), Vector(2, 4, 5, 5, 5, 3, 2, 2), Vector(1, 4, 3, 1, 2, 2, 0, 4), Vector(4, 2, 1, 2, 0, 5, 2, 2), Vector(2, 3, 3, 2, 5, 4, 1, 1))
-//val Mb= Vector(Vector(4, 5, 3, 5, 3, 0, 2, 3), Vector(0, 4, 5, 5, 5, 5, 0, 0), Vector(2, 0, 4, 0, 1, 2, 4, 4), Vector(5, 0, 0, 5, 0, 5, 2, 2), Vector(2, 1, 3, 5, 1, 3, 5, 3), Vector(1, 1, 1, 4, 0, 0, 0, 2), Vector(3, 2, 0, 3, 0, 1, 2, 0), Vector(1, 2, 0, 0, 0, 5, 4, 3))
-//val a =Vector(Vector(8, 8), Vector(9, 3))
-//val b =Vector(Vector(3, 9), Vector(9, 7))
+val a0 =matrizAlAzar(1,10)
+val b0 =matrizAlAzar(1,10)
+val a1 =matrizAlAzar(2,10)
+val b1 =matrizAlAzar(2,10)
+val a2 =matrizAlAzar(4,10)
+val b2 =matrizAlAzar(4,10)
+val a3 =matrizAlAzar(8,10)
+val b3 =matrizAlAzar(8,10)
+val a4 =matrizAlAzar(16,10)
+val b4 =matrizAlAzar(16,10)
+val a5 =matrizAlAzar(32,10)
+val b5 =matrizAlAzar(32,10)
+val a6 =matrizAlAzar(64,10)
+val b6 =matrizAlAzar(64,10)
+val a7 =matrizAlAzar(128,10)
+val b7 =matrizAlAzar(128,10)
+val a8 =matrizAlAzar(256,10)
+val b8 =matrizAlAzar(256,10)
+val a9 =matrizAlAzar(512,10)
+val b9 =matrizAlAzar(512,10)
 
+compararAlgoritmos(multMatrizRec,multMatrizRecPar)(a0,b0)
 
-multMatrizRec(a,b)
+compararAlgoritmos(multMatrizRec,multMatrizRecPar)(a1,b1)
 
-multMatriz(a,b)
-multStrassen(a,b)
+compararAlgoritmos(multMatrizRec,multMatrizRecPar)(a2,b2)
 
+compararAlgoritmos(multMatrizRec,multMatrizRecPar)(a3,b3)
+
+compararAlgoritmos(multMatrizRec,multMatrizRecPar)(a4,b4)
+
+compararAlgoritmos(multMatrizRec,multMatrizRecPar)(a5,b5)
+
+compararAlgoritmos(multMatrizRec,multMatrizRecPar)(a6,b6)
+
+compararAlgoritmos(multMatrizRec,multMatrizRecPar)(a7,b7)
+
+compararAlgoritmos(multMatrizRec,multMatrizRecPar)(a8,b8)
+
+compararAlgoritmos(multMatrizRec,multMatrizRecPar)(a9,b9)
+
+compararAlgoritmos(multMatrizRec,multMatrizRecPar)(a10,b10)
+//multMatrizRec(a,b)
 
 /*
-(multMatrizPar(a,b))
-(multMatriz(a,b))
-compararAlgoritmos(multMatrizPar,multMatriz)(a,b)
+multMatriz(a,b)
+multStrassen(a,b)
+multStrassenPar(a,b)
 */
-
-
